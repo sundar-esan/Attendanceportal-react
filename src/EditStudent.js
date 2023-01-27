@@ -27,6 +27,7 @@ export const EditStudent = () => {
   )
 };
 function EditStudentForm({ stud }) {
+  const [id, setId] = useState(stud.id);
   const [name, setName] = useState(stud.name);
   const [image, setImage] = useState(stud.image);
   const [Batch, setBatch] = useState(stud.Batch);
@@ -37,6 +38,14 @@ function EditStudentForm({ stud }) {
 
   return (
     <div className="new-stud-list">
+
+     <TextField
+        value={id}
+        id="outlined-basic"
+        label="student_id"
+        variant="outlined"
+        onChange={(event) => setId(event.target.value)}
+      />
       <TextField
         value={name}
         id="outlined-basic"
@@ -90,6 +99,7 @@ function EditStudentForm({ stud }) {
         color="success"
         onClick={() => {
           const updatedStud = {
+            id:id,
             name: name,
             image: image,
             Batch: Batch,

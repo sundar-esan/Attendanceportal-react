@@ -2,11 +2,13 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState } from "react";
-import { API } from "./global";
+
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { API } from "./global";
 
 export function AddStudent() {
+  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [Batch, setBatch] = useState("");
@@ -17,6 +19,7 @@ export function AddStudent() {
 
   const  handleSubmit=async()=>{
     const newStud = {
+      id:id,
       name: name,
       image: image,
      Batch: Batch,
@@ -24,12 +27,28 @@ export function AddStudent() {
      course_duration:course_duration,
      attendence_tillnow:attendence_tillnow
     };
-    await axios.post("http://localhost:4000/students",newStud)
-    window.location.reload("/students")
+    await axios.post(`${API}/students`,newStud)
+    .then((data)=>{
+      if(data.status===200){
+        history.push("/students");
+      }  //https://attendanceapinode.herokuapp.com/students
+
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+    
   }
 
   return (
     <div className="new-stud-list">
+
+        <TextField
+        id="outlined-basic"
+        label="student_id"
+        variant="outlined"
+        onChange={(event) => setId(event.target.value)}
+      />
       <TextField
         id="outlined-basic"
         label="name"

@@ -21,12 +21,14 @@ export function StudentList() {
   useEffect(() => getStud(), []);
 
   const deleteStud = (id) => {
+    console.log(id);
     fetch(`${API}/students/${id}`, {
       method: "DELETE",
     }).then(()=>getStud());
     
   };
 
+    console.log(studList);
   return (
     <div className="stud-list">
       {studList.map(
@@ -35,7 +37,7 @@ export function StudentList() {
             key={index}
             image={image}
             name={name}
-            Batch={Batch}
+            Batch={id}
             course={course}
             course_duration={course_duration}
             attendence_tillnow={attendence_tillnow}
